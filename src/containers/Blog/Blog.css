@@ -1,7 +1,54 @@
 .Posts {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 80%;
-    margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 80%;
+  margin: auto;
+}
+
+.List {
+  margin: 0;
+  padding: 10px;
+  line-height: 1;
+  list-style: none;
+  width: 100%;
+  text-align: center;
+}
+.List li {
+  display: inline-block;
+  margin: 20px;
+}
+.List a {
+  position: relative;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+.List a::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -25%;
+  min-width: 0;
+  border-radius: 50%;
+  height: 2px;
+  background: #000;
+  transition: inherit;
+}
+
+.List a:hover,
+.List a:active,
+.List .active {
+  color: darkorange;
+  opacity: 0.6;
+}
+
+.List .activeClass {
+  color: darkgoldenrod;
+  opacity: 1;
+}
+.List a:hover::after {
+  min-width: 150%;
 }
