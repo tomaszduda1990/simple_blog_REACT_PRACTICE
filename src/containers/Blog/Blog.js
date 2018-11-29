@@ -1,8 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import Posts from "./Posts/Posts";
 import FullPost from "../../components/FullPost/FullPost";
-import NewPost from "../../components/NewPost/NewPost";
+import AsyncComponent from "../../hoc/asyncComponent";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
+
+// old approach for lazy loading
+// const AsyncNewPost = AsyncComponent(() =>
+//   import("../../components/NewPost/NewPost")
+// );
+
+// new approach for lazy loading
+const NewPost = React.lazy(() => import("../../components/NewPost/NewPost"));
 
 class Blog extends Component {
   render() {
@@ -31,7 +39,15 @@ class Blog extends Component {
         </header>
         {/*<Route path="/" exact render={() => <Posts />} /> */}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          {/* <Route path="/new-post" component={AsyncNewPost} />*/}
+          <Route
+            path="/new-post"
+            render={() => (
+              <Suspense fallback={<p>...Loading...</p>}>
+                <NewPost />
+              </Suspense>
+            )}
+          />
           <Route path="/posts" component={Posts} />
           <Redirect from="/" to="/posts" />
         </Switch>
